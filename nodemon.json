@@ -1,0 +1,8 @@
+{
+  "env": {
+    "DB_USER": "amr",
+    "DB_PASSWORD": "1234",
+    "DB_NAME": "trips",
+    "DB_CLUSTER": "@cluster0-htajx.mongodb.net"
+  }
+}
