@@ -12,7 +12,7 @@ const storageKeyFile = path.join(
 );
 const storage = new Storage({
   projectId: storageId,
-  credentials: JSON.parse(process.env.GOOGle_APPLICATION_CREDENTIALS)
+  credentials: process.env.GOOGLE_CONFIG
 });
 
 // storage.getBuckets().then(x => console.log(x));
