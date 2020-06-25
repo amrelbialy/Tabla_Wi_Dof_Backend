@@ -2,6 +2,7 @@
   "env": {
     "DB_USER": "amr",
     "DB_PASSWORD": "1234",
-    "DB_NAME": "trips"
+    "DB_NAME": "trips",
+    "GCP_KEY_FILE": "./gcpconfig.json"
   }
 }
