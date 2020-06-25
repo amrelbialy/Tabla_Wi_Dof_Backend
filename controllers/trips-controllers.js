@@ -1,4 +1,3 @@
-const fs = require("fs");
 const imageShop = require("../models/imageShop");
 const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
@@ -56,16 +55,16 @@ const createTrip = async (req, res, next) => {
 
     await createdTrip.save();
 
-    frontFile = await fileBucket.upload(
-      "./uploads/resized/" + req.files["frontImage"][0].filename
-    );
-    backFile = await fileBucket.upload(
-      "./uploads/resized/" + req.files["backImage"][0].filename
-    );
-    const url = frontFile[0].metadata.mediaLink;
-    const url2 = backFile[0].metadata.mediaLink;
-    console.log(url);
-    console.log(url2);
+    // frontFile = await fileBucket.upload(
+    //   "./uploads/resized/" + req.files["frontImage"][0].filename
+    // );
+    // backFile = await fileBucket.upload(
+    //   "./uploads/resized/" + req.files["backImage"][0].filename
+    // );
+    // const url = frontFile[0].metadata.mediaLink;
+    // const url2 = backFile[0].metadata.mediaLink;
+    // console.log(url);
+    // console.log(url2);
   } catch (err) {
     console.log(err);
     const error = new HttpError(
