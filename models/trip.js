@@ -26,14 +26,19 @@ const tripSchema = new Schema({
     type: String,
     required: true
   },
-  frontImage: {
-    type: String,
-    required: true
-  },
-  backImage: {
+  nationalId: {
     type: String,
     required: true
   }
+
+  // frontImage: {
+  //   type: String,
+  //   required: true
+  // },
+  // backImage: {
+  //   type: String,
+  //   required: true
+  // }
 });
 
 module.exports = mongoose.model("User", tripSchema);

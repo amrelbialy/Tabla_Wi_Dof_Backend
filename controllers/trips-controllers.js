@@ -5,18 +5,18 @@ const Trip = require("../models/trip");
 const path = require("path");
 const { Storage } = require("@google-cloud/storage");
 
-const storageId = "storage-281412";
-const storageKeyFile = path.join(
-  __dirname,
-  "../storage-281412-89df25209e91.json"
-);
-const storage = new Storage({
-  projectId: storageId,
-  credentials: process.env.GOOGLE_CONFIG
-});
+// const storageId = "storage-281412";
+// const storageKeyFile = path.join(
+//   __dirname,
+//   "../storage-281412-89df25209e91.json"
+// );
+// const storage = new Storage({
+//   projectId: storageId,
+//   credentials: process.env.GOOGLE_CONFIG
+// });
 
-// storage.getBuckets().then(x => console.log(x));
-const fileBucket = storage.bucket("tablawidoftest");
+// // storage.getBuckets().then(x => console.log(x));
+// const fileBucket = storage.bucket("tablawidoftest");
 
 const createTrip = async (req, res, next) => {
   const errors = validationResult(req);
@@ -27,8 +27,8 @@ const createTrip = async (req, res, next) => {
     );
   }
 
-  let frontFile;
-  let backFile;
+  // let frontFile;
+  // let backFile;
 
   const {
     firstName,
@@ -36,7 +36,8 @@ const createTrip = async (req, res, next) => {
     phoneNumber,
     email,
     opinion,
-    destination
+    destination,
+    nationalId
   } = req.body;
 
   const createdTrip = new Trip({
@@ -46,25 +47,26 @@ const createTrip = async (req, res, next) => {
     email,
     opinion,
     destination,
-    frontImage: req.files["frontImage"][0].path,
-    backImage: req.files["backImage"][0].path
+    nationalId
+    // frontImage: req.files["frontImage"][0].path,
+    // backImage: req.files["backImage"][0].path
   });
 
   try {
-    await imageShop(req.files["frontImage"][0], req.files["backImage"][0]);
+    // await imageShop(req.files["frontImage"][0], req.files["backImage"][0]);
 
     await createdTrip.save();
 
-    frontFile = await fileBucket.upload(
-      "./uploads/resized/" + req.files["frontImage"][0].filename
-    );
-    backFile = await fileBucket.upload(
-      "./uploads/resized/" + req.files["backImage"][0].filename
-    );
-    const url = frontFile[0].metadata.mediaLink;
-    const url2 = backFile[0].metadata.mediaLink;
-    console.log(url);
-    console.log(url2);
+    // frontFile = await fileBucket.upload(
+    //   "./uploads/resized/" + req.files["frontImage"][0].filename
+    // );
+    // backFile = await fileBucket.upload(
+    //   "./uploads/resized/" + req.files["backImage"][0].filename
+    // );
+    // const url = frontFile[0].metadata.mediaLink;
+    // const url2 = backFile[0].metadata.mediaLink;
+    // console.log(url);
+    // console.log(url2);
   } catch (err) {
     console.log(err);
     const error = new HttpError(

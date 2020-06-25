@@ -5,3 +5,5 @@ fs.writeFile(
   process.env.GOOGLE_CONFIG,
   err => {}
 );
+//in json
+ // "preinstall": "node preinstall.js"

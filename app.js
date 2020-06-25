@@ -14,7 +14,7 @@ const connection = mongoose.connection;
 
 app.use(bodyParser.json());
 
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
+// app.use("/uploads/images", express.static(path.join("uploads", "images")));
 // app.use("/uploads/resized", express.static(path.join("uploads", "resized")));
 
 app.use((req, res, next) => {
@@ -45,9 +45,9 @@ app.use((error, req, res, next) => {
     return next(error);
   }
   res.status(error.code || 500);
-  // res.json({
-  //   message: error.message || "An unknown error occurred!"
-  // });
+  res.json({
+    message: error.message || "An unknown error occurred!"
+  });
 });
 
 mongoose
