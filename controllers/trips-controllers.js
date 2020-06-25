@@ -51,7 +51,7 @@ const createTrip = async (req, res, next) => {
   });
 
   try {
-    await imageShop(req.files["frontImage"][0], req.files["backImage"][0]);
+    // await imageShop(req.files["frontImage"][0], req.files["backImage"][0]);
 
     await createdTrip.save();
 
