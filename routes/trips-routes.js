@@ -24,9 +24,7 @@ router.post(
     check("destination")
       .not()
       .isEmpty(),
-    check("opinion")
-      .not()
-      .isEmpty(),
+
     check("email")
       .normalizeEmail()
       .isEmail(),

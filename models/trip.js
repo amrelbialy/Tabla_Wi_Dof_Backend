@@ -20,8 +20,7 @@ const tripSchema = new Schema({
     required: false
   },
   opinion: {
-    type: String,
-    required: true
+    type: String
   },
   destination: {
     type: String,

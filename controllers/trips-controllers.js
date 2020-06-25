@@ -1,18 +1,35 @@
 const fs = require("fs");
-
+const imageShop = require("../models/imageShop");
 const { validationResult } = require("express-validator");
-const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Trip = require("../models/trip");
+const path = require("path");
+const { Storage } = require("@google-cloud/storage");
+
+const storageId = "storage-281412";
+const storageKeyFile = path.join(
+  __dirname,
+  "../storage-281412-89df25209e91.json"
+);
+const storage = new Storage({
+  projectId: storageId,
+  keyFilename: storageKeyFile
+});
+
+// storage.getBuckets().then(x => console.log(x));
+const fileBucket = storage.bucket("tablawidoftest");
 
 const createTrip = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(errors);
+
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Your entered data is incorrect,check it again ", 422)
     );
   }
+
+  let frontFile;
+  let backFile;
 
   const {
     firstName,
@@ -35,7 +52,20 @@ const createTrip = async (req, res, next) => {
   });
 
   try {
+    await imageShop(req.files["frontImage"][0], req.files["backImage"][0]);
+
     await createdTrip.save();
+
+    frontFile = await fileBucket.upload(
+      "./uploads/resized/" + req.files["frontImage"][0].filename
+    );
+    backFile = await fileBucket.upload(
+      "./uploads/resized/" + req.files["backImage"][0].filename
+    );
+    const url = frontFile[0].metadata.mediaLink;
+    const url2 = backFile[0].metadata.mediaLink;
+    console.log(url);
+    console.log(url2);
   } catch (err) {
     console.log(err);
     const error = new HttpError(
