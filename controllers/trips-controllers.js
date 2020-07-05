@@ -17,6 +17,25 @@ const { Storage } = require("@google-cloud/storage");
 
 // // storage.getBuckets().then(x => console.log(x));
 // const fileBucket = storage.bucket("tablawidoftest");
+const getTrips = async (req, res, next) => {
+  let trips;
+  try {
+    trips = await Trip.find();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a user",
+      500
+    );
+    return next(error);
+  }
+
+  if (!trips) {
+    const error = new HttpError("Could not find users ", 404);
+    return next(error);
+  }
+
+  res.json({ trips });
+};
 
 const createTrip = async (req, res, next) => {
   const errors = validationResult(req);
@@ -82,3 +101,4 @@ const createTrip = async (req, res, next) => {
 };
 
 exports.createTrip = createTrip;
+exports.getTrips = getTrips;

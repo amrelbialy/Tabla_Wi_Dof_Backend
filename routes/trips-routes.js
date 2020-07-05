@@ -6,7 +6,7 @@ const tripsControllers = require("../controllers/trips-controllers");
 
 const router = express.Router();
 
-// router.get('/:tid', placesControllers.getPlaceById);
+router.get("/", tripsControllers.getTrips);
 
 router.post(
   "/",
